@@ -42,6 +42,53 @@ int main(void)
 	gravar(&img3, "exemplo3.pgm"); //gravar o resultado no disco
 	destruir(&img3);
 
+	//#Exemplo4#: preencher regiao
+	cout << "\n\n#Exemplo 4#\n";
+	cout << "Gerando img 4" << endl;
+	PGM img4;
+	criar(&img4, 5, 7, 0);
+	preencherRegiao(&img4, 1, 1, 4, 5, 255); //do pixel(1,1) ate pixel(3,4) -> preencher com branco(255)
+	gravar(&img4, "exemplo4.pgm");
+	destruir(&img4);
+
+	cout << "\n\n#Exemplo 5#\n";
+	cout << "Gerando img 5" << endl;
+	PGM img5;
+	criar(&img5, 500, 500, 0);
+	setLinhas50(&img5);
+	gravar(&img5, "exemplo5.pgm");
+	destruir(&img5);
+
+	cout<<"\n\n#Exemplo 6#\n";
+	cout<<"Gerando img 6"<<endl;
+	PGM img6;
+	ler(&img6, "feep.pgm");
+	imprimir(&img6);
+	inverterVertical(&img6);
+	gravar(&img6, "exemplo6.pgm");
+	destruir(&img6);
+
+	cout<<"\n\n#Exemplo 7#\n";
+	cout<<"DESENHAR BORDA"<<endl;
+	PGM entrada;
+	ler(&entrada, "numeros.pgm");
+	desenharBorda(&entrada, 0, 5);
+	gravar(&entrada, "numerosborda.pgm");
+	PGM saida;
+	cout<<"COPIAR REGIAO"<<endl;
+	copiarRegiao(&entrada, &saida, 120, 0, 225, 160); //x =
+	gravar(&saida, "exemplo7.pgm");
+	destruir(&entrada);
+	destruir(&saida);
+
+	cout<<"\n\n#Exemplo 8#\n";
+	cout<<"DESENHAR X"<<endl;
+	PGM img8;
+	ler(&img8, "numeros.pgm");
+	desenharX(&img8, 0);
+	gravar(&img8, "numerosx.pgm");
+	destruir(&img8);
+
 	
 	cout << "Pressione uma tecla para encerrar o programa.\n";
 	getchar();
