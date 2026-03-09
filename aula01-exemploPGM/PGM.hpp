@@ -298,6 +298,7 @@ void desenharBorda(PGM *pgm, unsigned char cor, int espessura) {
     }
 }
 
+//exerc 12
 void desenharX(PGM *pgm, unsigned char cor) {
     for (int y = 0; y < pgm->alt; y++) {
         // diagonal principal: x cresce junto com y
@@ -306,6 +307,16 @@ void desenharX(PGM *pgm, unsigned char cor) {
         int x2 = pgm->larg - 1 - x1;
         setPixel(pgm, x1, y, cor);
         setPixel(pgm, x2, y, cor);
+    }
+}
+
+//exerc 13
+void combinar(PGM *entrada1, PGM *entrada2, unsigned char cor)
+{
+    for (int x = 0; x < entrada1->larg; x++){
+        for (int y = 0; y < entrada1->alt; y++){
+
+        }
     }
 }
 #endif
