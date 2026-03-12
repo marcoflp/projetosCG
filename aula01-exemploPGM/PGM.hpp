@@ -311,12 +311,89 @@ void desenharX(PGM *pgm, unsigned char cor) {
 }
 
 //exerc 13
-void combinar(PGM *entrada1, PGM *entrada2, unsigned char cor)
-{
-    for (int x = 0; x < entrada1->larg; x++){
-        for (int y = 0; y < entrada1->alt; y++){
-
+void combinar(PGM *img1, PGM *img2, PGM *imgSaida, int opcao){
+    if(!img1->pixels || !img2->pixels){
+        cout<<"\nImagens invalidas\n";
+        return;
+    }
+    if(img1->larg != img2->larg || img1->alt != img2->alt){
+        cout<<"\nImagens com dimensoes diferentes\n";
+        return;
+    }
+    
+    criar(imgSaida, img1->larg, img1->alt, 0);
+    
+    for(int y = 0; y < img1->alt; y++){
+        for(int x = 0; x < img1->larg; x++){
+            unsigned char c1 = getPixel(img1, x, y);
+            unsigned char c2 = getPixel(img2, x, y);
+            unsigned char corFinal;
+            
+            if(opcao == 1)
+                corFinal = (c1 + c2) / 2;
+            else if(opcao == 2)
+                corFinal = (c1 > c2) ? c1 : c2;
+            else if(opcao == 3)
+                corFinal = (c1 < c2) ? c1 : c2;
+            else
+                corFinal = 0;
+            
+            setPixel(imgSaida, x, y, corFinal);
         }
     }
 }
+
+//desenhar borda em regiao definida por dois pontos
+void desenharBordaRegiao(PGM *pgm, int x1, int y1, int x2, int y2, unsigned char cor){
+    if(!coordValida(pgm, x1, y1) || !coordValida(pgm, x2, y2)){
+        cout<<"\nCoordenadas invalidas\n";
+        return;
+    }
+    
+    //garantir que x1,y1 seja o canto superior esquerdo
+    if(x1 > x2){
+        int temp = x1;
+        x1 = x2;
+        x2 = temp;
+    }
+    if(y1 > y2){
+        int temp = y1;
+        y1 = y2;
+        y2 = temp;
+    }
+    
+    //desenhar linhas horizontais (topo e baixo)
+    for(int x = x1; x <= x2; x++){
+        setPixel(pgm, x, y1, cor);
+        setPixel(pgm, x, y2, cor);
+    }
+    
+    //desenhar linhas verticais (esquerda e direita)
+    for(int y = y1; y <= y2; y++){
+        setPixel(pgm, x1, y, cor);
+        setPixel(pgm, x2, y, cor);
+    }
+}
+
+//converter tons de cinza para preto e branco
+void converterPretoBranco(PGM *entrada, PGM *saida){
+    if(!entrada->pixels){
+        cout<<"\nImagem de entrada invalida\n";
+        return;
+    }
+    
+    criar(saida, entrada->larg, entrada->alt, 0);
+    
+    for(int y = 0; y < entrada->alt; y++){
+        for(int x = 0; x < entrada->larg; x++){
+            unsigned char cor = getPixel(entrada, x, y);
+            if(cor > 128)
+                setPixel(saida, x, y, 255);
+            else
+                setPixel(saida, x, y, 0);
+        }
+    }
+}
+
+
 #endif

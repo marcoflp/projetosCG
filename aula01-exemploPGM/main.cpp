@@ -89,8 +89,41 @@ int main(void)
 	gravar(&img8, "numerosx.pgm");
 	destruir(&img8);
 
+	cout << "\n\n#Exemplo 9 - Combinar Imagens#\n";
+	cout << "1 - Media\n2 - Maior\n3 - Menor\nEscolha: ";
+	int opcao;
+	cin >> opcao;
+	
+	PGM imgA, imgB, imgCombinada;
+	ler(&imgA, "feep.pgm");
+	ler(&imgB, "exemplo3.pgm");
+	combinar(&imgA, &imgB, &imgCombinada, opcao);
+	gravar(&imgCombinada, "imagemCombinada.pgm");
+	destruir(&imgA);
+	destruir(&imgB);
+	destruir(&imgCombinada);
+	cout << "Imagem combinada salva!\n";
+
+	cout << "\n\n#Exemplo 10 - Borda em Regiao#\n";
+	PGM img10;
+	ler(&img10, "numeros.pgm");
+	desenharBordaRegiao(&img10, 235, 10, 350, 160, 128);
+	gravar(&img10, "bordaaoredordo2.pgm");
+	destruir(&img10);
+	cout << "Borda desenhada!\n";
+
+	cout << "\n\n#Exemplo 11 - Converter Preto e Branco#\n";
+	PGM img11, img11pb;
+	ler(&img11, "numeros.pgm");
+	converterPretoBranco(&img11, &img11pb);
+	gravar(&img11pb, "pretoBranco.pgm");
+	destruir(&img11);
+	destruir(&img11pb);
+	cout << "Imagem convertida para preto e branco!\n";
+
 	
 	cout << "Pressione uma tecla para encerrar o programa.\n";
+	getchar();
 	getchar();
 	return EXIT_SUCCESS; 
 }
